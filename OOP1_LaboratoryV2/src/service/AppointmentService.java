@@ -18,17 +18,23 @@ public class AppointmentService {
 		MedicalFinding mfinding = new MedicalFinding();
 		Appointment app = new Appointment();
 		System.out.println("Zakazivanje novog termina: ");
+		System.out.println("Unesite datum: ");
+		app.setDate(IOHandler.dateInput(sc));
 		System.out.println("1) Uzorkovanje kod kuce");
 		System.out.println("2) Uzorkovanje u laboratoriji");
 		int input = MenuService.chooseMenuOption(3, false, sc);
 		if(input == 1) {
 			app.setSubmissionType(SubmissionType.HOME);
+			System.out.println("Da li zelite konkretno vreme? Napomena: Ova opcija se dodatno naplacuje! \n 1)Da \n 2)Ne");
+			int opt = MenuService.chooseMenuOption(3, false, sc);
+			if(opt == 1) {
+				app.setTime(IOHandler.timeInput(sc));
+			}
 		}
 		else if(input == 2) {
 			app.setSubmissionType(SubmissionType.LABORATORY);
+			app.setTime(null);
 		}
-		System.out.println("Unesite datum: ");
-		app.setDate(IOHandler.dateInput(sc));
 		app.setSubmissionStatus(SubmissionStatus.NOT_READY);
 		app.setId(DataBase.appointments.size()+1);
 		boolean t = true;
@@ -81,6 +87,9 @@ public class AppointmentService {
 			if (appointment.getSubmissionStatus() == SubmissionStatus.READY){
 				app.add(appointment);
 			}
+		}
+		if (app.isEmpty()) {
+			System.out.println("Nema rezervisanih termina.");
 		}
 		return app;
 	}

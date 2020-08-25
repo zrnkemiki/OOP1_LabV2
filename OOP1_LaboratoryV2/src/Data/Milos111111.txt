@@ -1,0 +1,9 @@
+Pacijent: Milos Zrnic
+Pol:MUSKI
+Datum rodjenja: 1995-09-11
+Broj telefona: 0651234
+Datum:2020-08-26
+
+Rezultati: 
+Grupa analiza: BIOHEMIJA| Parametar: AST | Vasa vrednost: 14.47 |#|Min vrednost: 0.0 | Max vrednost: 40.0 | Jedinica mere: g/L
+Grupa analiza: BIOHEMIJA| Parametar: CHOLESTEROL | Vasa vrednost: 77.47 |#|Min vrednost: 62.0 | Max vrednost: 106.0 | Jedinica mere: g/L

@@ -3,7 +3,6 @@ package service;
 import java.util.Scanner;
 
 import model.DataBase;
-import model.ReferenceValue;
 
 public class Main {
 
@@ -13,13 +12,17 @@ public class Main {
 		DataBase.loadAnalysis();
 		DataBase.loadMedicalFindings();
 		DataBase.loadAppointment();
-		
+		DataBase.loadPriceList();
 		
 		System.out.println(DataBase.users.keySet());
-		System.out.println(DataBase.referenceValues.keySet());
+		
+		for (String key : DataBase.referenceValues.keySet()) {
+			System.out.println(DataBase.referenceValues.get(key).toString());
+		}
 		System.out.println(DataBase.analysis.toString());
 		System.out.println(DataBase.medicalFindings.toString());
 		System.out.println(DataBase.appointments.toString());
+		System.out.println(DataBase.priceList.consoleView());
 		
 		Scanner sc = new Scanner(System.in);
 		

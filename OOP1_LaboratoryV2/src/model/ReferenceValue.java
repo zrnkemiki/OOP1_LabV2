@@ -111,13 +111,13 @@ public class ReferenceValue {
 
 	public double generateMaleValues() {
 		Random r = new Random();
-		return (0.8 * this.getMinMale() + (1.2 * this.getMaxMale() - 0.8 * this.getMinMale()) * r.nextDouble());
+		return ((0.7 * this.getMinMale()) + (1.2 * this.getMaxMale() - 0.8 * this.getMinMale()) * r.nextDouble());
 
 	}
 
 	public double generateFemaleValues() {
 		Random r = new Random();
-		return (0.8 * this.getMinFemale() + (1.2 * this.getMaxFemale() - 0.8 * this.getMinFemale()) * r.nextDouble());
+		return ((0.8 * this.getMinFemale()) + (1.2 * this.getMaxFemale() - 0.8 * this.getMinFemale()) * r.nextDouble());
 
 	}
 

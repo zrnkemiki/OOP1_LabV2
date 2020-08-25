@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -26,6 +27,7 @@ public class DataBase {
 	public static ArrayList<Appointment> appointments = new ArrayList<Appointment>();
 	public static ArrayList<MedicalFinding> medicalFindings = new ArrayList<MedicalFinding>();
 	public static ArrayList<Analysis> analysis = new ArrayList<Analysis>();
+	public static PriceList priceList = new PriceList();
 
 	static BufferedWriter bw;
 	static FileWriter fw;
@@ -63,9 +65,9 @@ public class DataBase {
 	private static ReferenceValue getReferenceValueById(int id) {
 		ReferenceValue rv = null;
 		for (String key : DataBase.referenceValues.keySet()) {
-			if (DataBase.referenceValues.get(key).getId() == id)
-				;
-			rv = DataBase.referenceValues.get(key);
+			if (DataBase.referenceValues.get(key).getId() == id) {
+				rv = DataBase.referenceValues.get(key);
+			}
 		}
 		return rv;
 	}
@@ -126,9 +128,13 @@ public class DataBase {
 				if (tokens[3].trim().equals("NaN")) {
 					rv.setMinMale(Double.NaN);
 					rv.setMaxMale(Double.NaN);
+					rv.setMinFemale(Double.parseDouble(tokens[5].trim()));
+					rv.setMaxFemale(Double.parseDouble(tokens[6].trim()));
 				} else if (tokens[5].trim().equals("NaN")) {
 					rv.setMinFemale(Double.NaN);
 					rv.setMaxFemale(Double.NaN);
+					rv.setMinMale(Double.parseDouble(tokens[3].trim()));
+					rv.setMaxMale(Double.parseDouble(tokens[4].trim()));
 				} else {
 					rv.setMinMale(Double.parseDouble(tokens[3].trim()));
 					rv.setMaxMale(Double.parseDouble(tokens[4].trim()));
@@ -145,7 +151,40 @@ public class DataBase {
 			// TODO: handle exception
 		}
 	}
+	
+	public static void loadPriceList() {
+		try {
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/Data/priceList.txt"), "utf-8"));
+			String s;
+			while ((s = in.readLine()) != null) {
+				s = s.trim();
+				String[] tokens = s.split("\\|");
+				if (tokens[0].trim().toUpperCase().equals("HOMEVISIT")) {
+					priceList.setHomeVisit(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("HOMEVISITTIME")) {
+					priceList.setHomeVisitTime(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("EARNINGBASIC")) {
+					priceList.setEarningBasic(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("ANALYSISBONUS")) {
+					priceList.setAnalysisBonus(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("SSS4_COEFFICIENT")) {
+					priceList.setSSS4_coefficient(Double.parseDouble(tokens[1]));
+				}else if (tokens[0].trim().toUpperCase().equals("SSS6_COEFFICIENT")) {
+					priceList.setSSS6_coefficient(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("SSS8_COEFFICIENT")) {
+					priceList.setSSS8_coefficient(Double.parseDouble(tokens[1]));
+				} else if (tokens[0].trim().toUpperCase().equals("SPECIALIZATIONBONUS")) {
+					priceList.setEarningBasic(Double.parseDouble(tokens[1]));
+				}
+				
+			}
+		}
 
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	public static ReferenceValue getReferenceValueByParam(String param) {
 		return referenceValues.get(param);
 	}
@@ -363,18 +402,24 @@ public class DataBase {
 				Appointment a = new Appointment();
 				a.setId(Integer.parseInt(tokens[0]));
 				a.setDate(LocalDate.parse(tokens[1]));
-				if (tokens[2].trim().equals("HOME")) {
+				if(tokens[2].equals("null")) {
+					a.setTime(null);
+				}
+				else {
+					a.setTime(LocalTime.parse(tokens[2].trim()));
+				}
+				if (tokens[3].trim().equals("HOME")) {
 					a.setSubmissionType(SubmissionType.HOME);
-				} else if (tokens[2].trim().equals("LABORATORY")) {
+				} else if (tokens[3].trim().equals("LABORATORY")) {
 					a.setSubmissionType(SubmissionType.LABORATORY);
 				}
 
-				if (tokens[3].trim().equals("READY")) {
+				if (tokens[4].trim().equals("READY")) {
 					a.setSubmissionStatus(SubmissionStatus.READY);
-				} else if (tokens[3].trim().equals("NOT_READY")) {
+				} else if (tokens[4].trim().equals("NOT_READY")) {
 					a.setSubmissionStatus(SubmissionStatus.NOT_READY);
 				}
-				a.setMedicalFinding(getMedicalFindingByID(Integer.parseInt(tokens[4])));
+				a.setMedicalFinding(getMedicalFindingByID(Integer.parseInt(tokens[5])));
 				DataBase.appointments.add(a);
 			}
 		}

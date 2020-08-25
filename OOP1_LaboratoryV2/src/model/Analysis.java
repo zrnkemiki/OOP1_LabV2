@@ -1,6 +1,7 @@
 package model;
 
 import enums.AnalysisGroup;
+import enums.Sex;
 
 public class Analysis {
 	
@@ -76,6 +77,21 @@ public class Analysis {
 	public String consoleView() {
 		return "Grupa analize:  " + analysisGroup + "| Parametar:  " + name;
 	}
+
+	private String exportReferenceValue(Patient p) {
+		if(p.getSex() == Sex.MALE) {
+			return "Min vrednost: " + this.referenceValue.getMinMale() + " | Max vrednost: " + this.referenceValue.getMaxMale() + " | Jedinica mere: " + this.referenceValue.getUnit();
+		}
+		else {
+			return "Min vrednost: " + this.referenceValue.getMinFemale() + " | Max vrednost: " + this.referenceValue.getMaxFemale() + "| Jedinica mere: " + this.referenceValue.getUnit(); 
+		}
+	}
+
+
+	public String exportView(Patient patient) {
+		return "Grupa analiza: " + analysisGroup + "| Parametar: " + name + " | Vasa vrednost: "  + String.format("%.2f",value) + " |#|"
+				+ exportReferenceValue(patient);
+			}
 	
 	
 	

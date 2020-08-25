@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import enums.Sex;
 import model.Analysis;
 import model.DataBase;
 import model.MedicalFinding;
@@ -28,10 +29,21 @@ public class MedicalFindingService {
 		FileWriter fw;
 		ArrayList<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		String data = "";
+		String pol = "";
+		if(mf.getPatient().getSex() == Sex.MALE) {
+			pol = "MUSKI";
+		}
+		else {
+			pol = "ZENSKI";
+		}
 		data += "Pacijent: " + mf.getPatient().getFirstName() + " " + mf.getPatient().getLastName() + "\n";
+		data += "Pol:" + pol + "\n";
+		data += "Datum rodjenja: " + mf.getPatient().getDateOfBirth()+ "\n";
+		data += "Broj telefona: " + mf.getPatient().getPhoneNumber()+ "\n";
 		data += "Datum:" + mf.getDate().toString() + "\n\n";
+		data += "Rezultati: \n";
 		for (Analysis a : mf.getAnalysis()) {
-			data += a.toString() + "\n";
+			data += a.exportView(mf.getPatient()) + "\n";
  			
 		}
 		try {

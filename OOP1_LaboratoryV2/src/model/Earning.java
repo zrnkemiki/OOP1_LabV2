@@ -8,6 +8,7 @@ public class Earning {
 	private User user;
 	private LocalDate dateFrom;
 	private LocalDate dateUntil;
+	private double basic;
 	private double amount;
 
 	public Earning() {
@@ -15,13 +16,22 @@ public class Earning {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Earning(int id, User user, LocalDate dateFrom, LocalDate dateUntil, double amount) {
+	public Earning(int id, User user, LocalDate dateFrom, LocalDate dateUntil, double basic, double amount) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.dateFrom = dateFrom;
 		this.dateUntil = dateUntil;
+		this.basic = basic;
 		this.amount = amount;
+	}
+
+	public double getBasic() {
+		return basic;
+	}
+
+	public void setBasic(double basic) {
+		this.basic = basic;
 	}
 
 	public int getId() {
@@ -63,7 +73,5 @@ public class Earning {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
-	
 
 }

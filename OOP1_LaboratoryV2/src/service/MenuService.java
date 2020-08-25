@@ -89,10 +89,9 @@ public class MenuService {
 		} else if (user instanceof MedicalTechnician) {
 			System.out.println("-------------------------------------\n");
 			System.out.println("1) Registracija pacijenta.");
-			System.out.println("2) Pregled analiza");
-			System.out.println("3) Zakazivanje termina za pacijenta");
-			System.out.println("4) Pregled svih zakazanih termina");
-			System.out.println("5) Promena statusa danasnjih termina");
+			System.out.println("2) Zakazivanje termina za pacijenta");
+			System.out.println("3) Pregled svih zakazanih termina");
+			System.out.println("4) Promena statusa danasnjih termina");
 			System.out.println("0) Odjavljivanje");
 			input = chooseMenuOption(6, true, sc);
 			//AppointmentController a = new AppointmentController();
@@ -111,13 +110,15 @@ public class MenuService {
 				//ac.exportAnalysis(ac.getAnalysisByLBO(lbo));
 				break;
 			case 3:
-				//a.makeAppointment(user);
-				break;
-			case 4:
 				AppointmentService.showAppointments(AppointmentService.getFutureAppointments());
 				break;
-			case 5:
-				AppointmentService.changeStatus(chooseAppointmentMenu(sc, AppointmentService.getTodayAppointments()));
+			case 4:
+				ArrayList<Appointment> app = AppointmentService.getTodayAppointments();
+				if(app.isEmpty()) {
+					System.out.println("Nema rezervisanih termina za danas.");
+					break;
+				}
+				AppointmentService.changeStatus(chooseAppointmentMenu(sc, app));
 				
 				break;
 			case 0:
@@ -154,6 +155,7 @@ public class MenuService {
 				System.out.println("Analize spremne za obradu, izberite: ");
 				ArrayList<Analysis> a =  AnalysisService.getAnalysis((Laborant)user, AppointmentService.getReadyAppointments());
 				if(a.isEmpty()) {
+					System.out.println("Trenutno nema spremnih analiza!");
 					break;
 				}
 				AnalysisService.doAnalysis(chooseAnalysis(sc,a));
@@ -246,7 +248,7 @@ public class MenuService {
 	
 	public static Appointment chooseAppointmentMenu(Scanner sc, ArrayList<Appointment> apps){
 		for(int i=0;i<apps.size();i++) {
-			System.out.println(i+1 + ")" + apps.get(i));
+			System.out.println(i+1 + ")" + apps.get(i).consoleView());
 		}
 		return apps.get(chooseMenuOption(apps.size()+1, false, sc)-1); 
 	}

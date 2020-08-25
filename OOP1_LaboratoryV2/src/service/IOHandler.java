@@ -1,6 +1,7 @@
 package service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 import model.DataBase;
@@ -127,6 +128,30 @@ public class IOHandler {
 			
 		}
 		return broj;
+	}
+
+	public static LocalTime timeInput(Scanner sc) {
+		String unos;
+		LocalTime time = null;
+		boolean temp = true;
+		while(temp)
+		{
+			System.out.println("Molimo unesite vreme u formatu HH:mm");
+			unos = sc.nextLine();
+			try {
+				time = LocalTime.parse(unos);
+				if(time.isAfter(LocalTime.parse("18:00")) || time.isBefore(LocalTime.parse("08:00")) ) {
+					System.out.println("Laboratorija radi od 08h do 18h.");
+					temp = true;
+				}
+				else {
+					temp = false;
+				}
+			} catch(Exception e) {
+				System.out.println("Format nije validan!");
+			}
+		}
+		return time;
 	}
 
 
