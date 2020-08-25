@@ -32,8 +32,9 @@ public class MenuService {
 			System.out.println("1) Plata");
 			System.out.println("2) Izmena cenovnika");
 			System.out.println("3) Dodavanje analize");
+			System.out.println("4) Cenovnik svih analiza");
 			System.out.println("0) Odjavljivanje.");
-			input = chooseMenuOption(4, true, sc);
+			input = chooseMenuOption(5, true, sc);
 			switch (input) {
 			case 1:
 				System.out.println("-------------------------------------\n");
@@ -49,6 +50,11 @@ public class MenuService {
 				System.out.println("-------------------------------------\n");
 				System.out.println("Dodavanje analize");
 				ReferenceValueService.newReferenceValue(sc, chooseAnalysisGroupMenu(sc));
+				break;
+			case 4:
+				System.out.println("-------------------------------------\n");
+				System.out.println("Cenovnih svih analiza");
+				ReferenceValueService.getAllReferenceValues();
 				break;
 			case 0:
 				System.out.println("Uspesno ste se izlogovali. \n");

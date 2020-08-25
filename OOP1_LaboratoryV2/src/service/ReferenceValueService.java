@@ -37,6 +37,13 @@ public class ReferenceValueService {
 		DataBase.referenceValues.put(rv.getName(), rv);
 		DataBase.saveReferenceValue();
 	}
+
+	public static void getAllReferenceValues() {
+		for (String key : DataBase.referenceValues.keySet()) {
+			System.out.println("Grupa: " + DataBase.referenceValues.get(key).getAnalysisGroup() + "| Naziv: " + DataBase.referenceValues.get(key).getName() + "| Cena analize: " + DataBase.referenceValues.get(key).getPrice());
+		}
+		
+	}
 	
 
 }
