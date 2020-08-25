@@ -5,11 +5,14 @@ import java.util.Scanner;
 
 import enums.AnalysisGroup;
 import model.Admin;
+import model.Analysis;
 import model.Appointment;
 import model.DataBase;
 import model.Laborant;
+import model.MedicalFinding;
 import model.MedicalTechnician;
 import model.Patient;
+import model.ReferenceValue;
 import model.User;
 
 
@@ -26,23 +29,26 @@ public class MenuService {
 		int input;
 		if ( user instanceof Admin) {
 			System.out.println("-------------------------------------\n");
-			System.out.println("1) Pregled korisnika.");
-			System.out.println("2) Kreiranje menadzera");
-			System.out.println("3) Izmena menadzera");
-			System.out.println("4) Brisanje menadzera");
+			System.out.println("1) Plata");
+			System.out.println("2) Izmena cenovnika");
+			System.out.println("3) Dodavanje analize");
 			System.out.println("0) Odjavljivanje.");
-			input = chooseMenuOption(5, true, sc);
+			input = chooseMenuOption(4, true, sc);
 			switch (input) {
 			case 1:
 				System.out.println("-------------------------------------\n");
-				System.out.println("1) Menu 1");
-				System.out.println("2) ");
-				System.out.println("3) ");
-				System.out.println("4) ");
-				System.out.println("5) ");
-				System.out.println("6) ");
-				System.out.println("0) Izlazak iz programa");
-				input = chooseMenuOption(7, true, sc);
+				System.out.println("1) Isplati plate");
+				input = chooseMenuOption(1, true, sc);
+				break;
+			case 2:
+				System.out.println("-------------------------------------\n");
+				System.out.println("Izmena cenovnika");
+				chooseReferenceValueMenu(sc).changePrice(sc);;
+				break;
+			case 3:
+				System.out.println("-------------------------------------\n");
+				System.out.println("Dodavanje analize");
+				ReferenceValueService.newReferenceValue(sc, chooseAnalysisGroupMenu(sc));
 				break;
 			case 0:
 				System.out.println("Uspesno ste se izlogovali. \n");
@@ -54,25 +60,19 @@ public class MenuService {
 
 		else if (user instanceof Patient) {
 			System.out.println("-------------------------------------\n");
-			System.out.println("1) Pregled profila.");
+			System.out.println("1) Pregled nalaza.");
 			System.out.println("2) Zakazivanje termina.");
-			System.out.println("3) Z");
 			System.out.println("0) Odjavljivanje.");
-			input = chooseMenuOption(4, true, sc);
+			input = chooseMenuOption(3, true, sc);
 			switch (input) {
 			case 1:
 				System.out.println("-------------------------------------\n");
-				System.out.println("1) Menu 1");
-				System.out.println("0) Izlazak iz programa");
-				input = chooseMenuOption(2, true, sc);
+				System.out.println("Pregled nalaza");
+				MedicalFindingService.exportMedicalFinding(chooseMedicalFindingMenu(MedicalFindingService.getPatientMedicalFindings((Patient)user), sc));
 				break;
 			case 2:
 				AppointmentService.makeAppointment((Patient)user, sc);
 				
-				break;
-			case 3:
-				//AppointmentController t = new AppointmentController();
-				//t.makeAppointment(user);
 				break;
 			case 0:
 				System.out.println("Uspesno ste se izlogovali. \n");
@@ -125,7 +125,7 @@ public class MenuService {
 			System.out.println("-------------------------------------\n");
 			System.out.println("1) Nova analiza.");
 			System.out.println("2) Pregled analiza.");
-			System.out.println("3) Analize zakazane za danas.");
+			System.out.println("3) Analize spremne za obradu");
 			System.out.println("0) Odjavljivanje.");
 			input = chooseMenuOption(4, true, sc);
 			//AnalysisController ac = new AnalysisController();
@@ -145,11 +145,12 @@ public class MenuService {
 				break;
 			case 3:
 				System.out.println("-------------------------------------\n");
-				System.out.println("Analize zakazane za danas, uzorci uzeti: ");
-				//apc.getTodayReadyAppointents();
-				System.out.println("Unesite broj analize koju zelite da uradite: ");
-				int i = IOHandler.intInput(sc);
-				//ac.createAnalysisFromAppointment(i);
+				System.out.println("Analize spremne za obradu, izberite: ");
+				ArrayList<Analysis> a =  AnalysisService.getAnalysis((Laborant)user, AppointmentService.getReadyAppointments());
+				if(a.isEmpty()) {
+					break;
+				}
+				AnalysisService.doAnalysis(chooseAnalysis(sc,a));
 				break;
 			case 0:
 				System.out.println("Uspesno ste se izlogovali. \n");
@@ -158,6 +159,27 @@ public class MenuService {
 				break;
 			}
 		}
+	}
+
+	private MedicalFinding chooseMedicalFindingMenu(ArrayList<MedicalFinding> medicalFindings, Scanner sc) {
+		for(int i=0;i<medicalFindings.size();i++) {
+			System.out.println(i+1 + ")" + medicalFindings.get(i).consoleView());
+		}
+		return medicalFindings.get(chooseMenuOption(medicalFindings.size()+1, false, sc)-1); 
+	}
+	
+
+	private ReferenceValue chooseReferenceValueMenu(Scanner sc) {
+		ArrayList<ReferenceValue> rvs = new ArrayList<ReferenceValue>();
+		for (String key : DataBase.referenceValues.keySet()) {
+			rvs.add(DataBase.referenceValues.get(key));
+		}
+		for(int i=0;i<rvs.size();i++) {
+			System.out.println(i+1 + ")" + rvs.get(i).consoleView());
+		}
+		System.out.println("Unesite broj parametra koji zelite da menjate.");
+		return rvs.get(chooseMenuOption(rvs.size()+1, false, sc)-1); 
+		
 	}
 
 	public static int chooseMenuOption(int range, boolean saNulom, Scanner sc) {
@@ -200,6 +222,12 @@ public class MenuService {
 		return AnalysisGroup.values()[input - 1];
 	}
 	
+	public static Analysis chooseAnalysis(Scanner sc, ArrayList<Analysis> analysis) {
+		for(int i=0;i<analysis.size();i++) {
+			System.out.println(i+1 + ")" + analysis.get(i).consoleView());
+		}
+		return analysis.get(chooseMenuOption(analysis.size()+1, false, sc)-1); 
+	}
 	
 	
 	public static String chooseAnalysisMenu(Scanner sc, AnalysisGroup ag){

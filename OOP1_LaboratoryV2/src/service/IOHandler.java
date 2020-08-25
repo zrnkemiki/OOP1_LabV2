@@ -112,5 +112,22 @@ public class IOHandler {
 		return lbo;
 	}
 
+	public static double doubleInput(Scanner sc) {
+		String unos;
+		double broj;
+		while (true)
+		{
+			unos = sc.nextLine();
+			try {
+				broj = Double.valueOf(unos);
+				break;
+			} catch (Exception e) {
+				System.out.println("Only number input is accepted.");
+			}
+			
+		}
+		return broj;
+	}
+
 
 }

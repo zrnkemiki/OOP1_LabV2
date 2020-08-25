@@ -94,6 +94,8 @@ public class DataBase {
 
 				mf.setDate(LocalDate.parse((tokens[2])));
 				mf.setPatient((Patient) DataBase.users.get(tokens[3]));
+				mf.setPrice(Double.valueOf(tokens[4]));
+				mf.setDone(Boolean.valueOf(tokens[5]));
 				DataBase.medicalFindings.add(mf);
 			}
 		}
@@ -121,12 +123,12 @@ public class DataBase {
 					rv.setAnalysisGroup(AnalysisGroup.HEMATOLOGIJA);
 				}
 				rv.setName(tokens[2].trim());
-				if (tokens[3].trim().equals("null")) {
-					rv.setMinFemale(Double.parseDouble(tokens[5].trim()));
-					rv.setMaxFemale(Double.parseDouble(tokens[6].trim()));
-				} else if (tokens[5].trim().equals("null")) {
-					rv.setMinMale(Double.parseDouble(tokens[3].trim()));
-					rv.setMaxMale(Double.parseDouble(tokens[4].trim()));
+				if (tokens[3].trim().equals("NaN")) {
+					rv.setMinMale(Double.NaN);
+					rv.setMaxMale(Double.NaN);
+				} else if (tokens[5].trim().equals("NaN")) {
+					rv.setMinFemale(Double.NaN);
+					rv.setMaxFemale(Double.NaN);
 				} else {
 					rv.setMinMale(Double.parseDouble(tokens[3].trim()));
 					rv.setMaxMale(Double.parseDouble(tokens[4].trim()));
@@ -163,9 +165,9 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("m")) {
+					if (tokens[5].trim().equals("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("f")) {
+					} else if (tokens[5].trim().equals("female")) {
 						u.setSex(Sex.MALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
@@ -179,9 +181,9 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("m")) {
+					if (tokens[5].trim().equals("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("f")) {
+					} else if (tokens[5].trim().equals("female")) {
 						u.setSex(Sex.MALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
@@ -221,9 +223,9 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("m")) {
+					if (tokens[5].trim().equals("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("f")) {
+					} else if (tokens[5].trim().equals("female")) {
 						u.setSex(Sex.MALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
@@ -245,9 +247,9 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("m")) {
+					if (tokens[5].trim().equals("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("f")) {
+					} else if (tokens[5].trim().equals("female")) {
 						u.setSex(Sex.MALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
@@ -385,11 +387,30 @@ public class DataBase {
 	private static MedicalFinding getMedicalFindingByID(int id) {
 		MedicalFinding mfinding = null;
 		for (MedicalFinding mf : DataBase.medicalFindings) {
-			if(mf.getId() == id) {
+			if (mf.getId() == id) {
 				mfinding = mf;
 			}
 		}
 		return mfinding;
+	}
+
+	public static void saveReferenceValue() {
+		String sadrzaj = "";
+		for (String key : DataBase.referenceValues.keySet()) {
+			sadrzaj += DataBase.referenceValues.get(key).toString() + "\n";
+
+		}
+		try {
+			fw = new FileWriter("src/Data/ReferenceValues.txt");
+			bw = new BufferedWriter(fw);
+			bw.write(sadrzaj);
+			bw.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

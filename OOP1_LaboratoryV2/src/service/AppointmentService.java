@@ -24,7 +24,7 @@ public class AppointmentService {
 		if(input == 1) {
 			app.setSubmissionType(SubmissionType.HOME);
 		}
-		else if(input == 1) {
+		else if(input == 2) {
 			app.setSubmissionType(SubmissionType.LABORATORY);
 		}
 		System.out.println("Unesite datum: ");
@@ -48,6 +48,7 @@ public class AppointmentService {
 			if (input == 2) {
 				t = false;
 				mfinding.setId(DataBase.medicalFindings.size() + 1);
+				mfinding.setDone(false);
 				DataBase.medicalFindings.add(mfinding);
 				app.setMedicalFinding(mfinding);
 				DataBase.appointments.add(app);
@@ -68,6 +69,16 @@ public class AppointmentService {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
 			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() != SubmissionStatus.READY)){
+				app.add(appointment);
+			}
+		}
+		return app;
+	}
+	
+	public static ArrayList<Appointment> getReadyAppointments() {
+		ArrayList<Appointment> app = new ArrayList<Appointment>();
+		for (Appointment appointment : DataBase.appointments) {
+			if (appointment.getSubmissionStatus() == SubmissionStatus.READY){
 				app.add(appointment);
 			}
 		}

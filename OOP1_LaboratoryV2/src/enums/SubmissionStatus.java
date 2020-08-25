@@ -1,5 +1,5 @@
 package enums;
 
 public enum SubmissionStatus {
-	NOT_READY, READY
+	NOT_READY, READY, DONE
 }

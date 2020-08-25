@@ -3,6 +3,7 @@ package service;
 import java.util.Scanner;
 
 import model.DataBase;
+import model.ReferenceValue;
 
 public class Main {
 
@@ -12,6 +13,7 @@ public class Main {
 		DataBase.loadAnalysis();
 		DataBase.loadMedicalFindings();
 		DataBase.loadAppointment();
+		
 		
 		System.out.println(DataBase.users.keySet());
 		System.out.println(DataBase.referenceValues.keySet());

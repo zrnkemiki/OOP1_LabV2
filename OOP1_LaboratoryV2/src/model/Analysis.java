@@ -72,6 +72,11 @@ public class Analysis {
 				+ "|" + done + "|" + referenceValue.getId();
 	}
 	
+
+	public String consoleView() {
+		return "Grupa analize:  " + analysisGroup + "| Parametar:  " + name;
+	}
+	
 	
 	
 	

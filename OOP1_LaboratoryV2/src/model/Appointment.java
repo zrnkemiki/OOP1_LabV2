@@ -72,5 +72,10 @@ public class Appointment {
 	public String toString() {
 		return id + "|" + date + "|" + submissionType + "|" + submissionStatus + "|" + medicalFinding.getId();
 	}
+	
+
+	public String consoleView() {
+		return "Datum: " + date + "|Tip predaje: " + submissionType + "|Trenutni status:  " + submissionStatus;
+	}
 
 }
