@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,8 +31,8 @@ public class DataBase {
 	public static PriceList priceList = new PriceList();
 	public static ArrayList<Salary> salaries = new ArrayList<Salary>();
 
-	static BufferedWriter bw;
-	static FileWriter fw;
+	private static BufferedWriter bw;
+	private static FileWriter fw;
 	
 	
 
@@ -46,9 +47,9 @@ public class DataBase {
 	}
 
 	public void loadAnalysis() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/analysis.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "analysis.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -89,9 +90,9 @@ public class DataBase {
 	}
 
 	public void loadMedicalFindings() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/medicalFindings.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "medicalFindings.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -135,9 +136,9 @@ public class DataBase {
 	}
 
 	public void loadReferenceValues() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/ReferenceValues.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "ReferenceValues.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -195,9 +196,9 @@ public class DataBase {
 	}
 
 	public static void loadPriceList() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/priceList.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "priceList.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -225,9 +226,9 @@ public class DataBase {
 	}
 
 	public void loadAppointment() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/appointments.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "appointments.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -267,8 +268,8 @@ public class DataBase {
 
 	public void loadUsers() {
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/users.txt"), "utf-8"));
+			String separator = System.getProperty("file.separator");
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "users.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -402,9 +403,9 @@ public class DataBase {
 	}
 
 	public void loadSalaries() {
+		String separator = System.getProperty("file.separator");
 		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/salaries.txt"), "utf-8"));
+			BufferedReader in = new BufferedReader(new FileReader("src" + separator + "Data" + separator + "salaries.txt"));
 			String s;
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
@@ -430,13 +431,14 @@ public class DataBase {
 	}
 
 	public static void saveAppointment() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (Appointment a : DataBase.appointments) {
 			sadrzaj += a.toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/appointments.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "appointments.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();
@@ -448,13 +450,14 @@ public class DataBase {
 	}
 
 	public static void saveAnalysis() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (Analysis a : DataBase.analysis) {
 			sadrzaj += a.toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/analysis.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "analysis.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();
@@ -466,13 +469,14 @@ public class DataBase {
 	}
 
 	public static void saveMedicalFinding() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (MedicalFinding a : DataBase.medicalFindings) {
 			sadrzaj += a.toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/medicalFindings.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "medicalFindings.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();
@@ -485,13 +489,14 @@ public class DataBase {
 	}
 
 	public static void saveReferenceValue() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (String key : DataBase.referenceValues.keySet()) {
 			sadrzaj += DataBase.referenceValues.get(key).toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/ReferenceValues.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "ReferenceValues.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();
@@ -504,13 +509,14 @@ public class DataBase {
 	}
 
 	public static void saveUser() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (String key : DataBase.users.keySet()) {
 			sadrzaj += DataBase.users.get(key).toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/users.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "users.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();
@@ -523,13 +529,14 @@ public class DataBase {
 	}
 
 	public static void saveSalaries() {
+		String separator = System.getProperty("file.separator");
 		String sadrzaj = "";
 		for (Salary s : DataBase.salaries) {
 			sadrzaj += s.toString() + "\n";
 
 		}
 		try {
-			fw = new FileWriter("src/Data/salaries.txt");
+			fw = new FileWriter("src" + separator + "Data" + separator + "salaries.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();

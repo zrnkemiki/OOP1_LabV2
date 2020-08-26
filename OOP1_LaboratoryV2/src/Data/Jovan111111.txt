@@ -1,0 +1,11 @@
+Pacijent: Jovan Jovanovic
+Pol:MUSKI
+Datum rodjenja: 1995-06-13
+Broj telefona: 01122334455
+Datum uzorkovanja:2020-08-26
+Datum nalaza:2020-08-26
+Cena: 225.0
+
+Rezultati: 
+Grupa analiza: BIOHEMIJA| Parametar: CHOLESTEROL | Vasa vrednost: 47.56 |#|Min vrednost: 62.0 | Max vrednost: 106.0 | Jedinica mere: g/L
+Grupa analiza: HORMONI| Parametar: TOSTESTERON | Vasa vrednost: 21.24 |#|Min vrednost: 11.4 | Max vrednost: 27.9 | Jedinica mere: mmol/L

@@ -2,6 +2,8 @@ package service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.DataBase;
 import model.Laborant;
@@ -56,5 +58,16 @@ public class SalaryService {
 		}
 		System.out.println("Plate uspesno isplacene.");
 		DataBase.saveSalaries();
+	}
+	
+	public static List<Salary> getSalariesByDate(LocalDate from, LocalDate to) {
+		List<Salary> found = new ArrayList<Salary>();
+		for (Salary s : DataBase.salaries) {
+			if (s.getDateFrom().isAfter(from) && s.getDateUntil().isBefore(to)) {
+				found.add(s);
+			}
+		}
+		
+		return found;
 	}
 }

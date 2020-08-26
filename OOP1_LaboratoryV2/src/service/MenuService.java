@@ -61,13 +61,13 @@ public class MenuService {
 		System.out.println("4) Cenovnik svih analiza");
 		System.out.println("5) Dodavanje specijalizacija laborantu");
 		System.out.println("0) Odjavljivanje.");
-		int input = chooseMenuOption(6, false, sc);
+		int input = chooseMenuOption(6, true, sc);
 		switch (input) {
 		case 1:
 			System.out.println("-------------------------------------\n");
 			System.out.println("1) Isplati plate");
-			System.out.println("2) Nazad");
-			input = chooseMenuOption(3, true, sc);
+			System.out.println("0) Nazad");
+			input = chooseMenuOption(2, true, sc);
 			if (input == 1) {
 				salaryService.paySalaries();
 			}
@@ -105,7 +105,7 @@ public class MenuService {
 		System.out.println("2) Zakazivanje termina.");
 		System.out.println("3) Pregled cenovnika analiza");
 		System.out.println("0) Odjavljivanje.");
-		int input = chooseMenuOption(3, true, sc);
+		int input = chooseMenuOption(4, true, sc);
 		switch (input) {
 		case 1:
 			System.out.println("-------------------------------------\n");
@@ -206,7 +206,6 @@ public class MenuService {
 			ArrayList<Analysis> a1 = analysisService.getAnalysis((Laborant) user,
 					appointmentService.getReadyAppointments());
 			if (a1.isEmpty()) {
-				System.out.println("Trenutno nema spremnih analiza!");
 				break;
 			}
 			analysisService.doAnalysis(chooseAnalysis(sc, a1));
