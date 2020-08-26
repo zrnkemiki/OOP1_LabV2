@@ -2,8 +2,6 @@ package model;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 import enums.AnalysisGroup;
 import enums.Sex;
 

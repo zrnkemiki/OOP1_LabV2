@@ -102,7 +102,7 @@ public class AppointmentService {
 			}
 		}
 		if (app.isEmpty()) {
-			System.out.println("Nema rezervisanih termina.");
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		}
 		return app;
 	}
