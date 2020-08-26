@@ -26,6 +26,7 @@ public class Main {
 		}
 		//System.out.println(DataBase.salaries.toString());
 		
+		
 		Scanner sc = new Scanner(System.in);
 		MenuService menu = new MenuService();
 		menu.start(sc);

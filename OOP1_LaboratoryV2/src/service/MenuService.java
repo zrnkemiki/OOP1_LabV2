@@ -196,9 +196,9 @@ public class MenuService {
 		switch (input) {
 		case 1:
 			System.out.println("-------------------------------------\n");
-			ArrayList<Analysis> a = analysisService.getAnalysis((Laborant) user,
-					appointmentService.getReadyAppointments());
-			analysisService.showAnalysis(a);
+			System.out.println("Sve analize koje pripadaju vasoj specijalizaciji:\n");
+			analysisService.showAnalysis(analysisService.getAnalysis((Laborant) user,
+					appointmentService.getFutureAppointments()));
 			break;
 		case 2:
 			System.out.println("-------------------------------------\n");
@@ -309,7 +309,7 @@ public class MenuService {
 
 		while (true) {
 			aktivan = true;
-			System.out.println("\n**Welcome to OOP1 Laboratory**");
+			System.out.println("\n**Dobrodošli u Laboratoriju OOP1-FTN**");
 			System.out.println(" Unesite korisnicko ime:");
 			username = input.nextLine();
 			if (username.equals("")) {

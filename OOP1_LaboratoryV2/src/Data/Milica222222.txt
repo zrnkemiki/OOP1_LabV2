@@ -1,0 +1,13 @@
+Pacijent: Milica Djordjevic
+Pol:ZENSKI
+Datum rodjenja: 1995-09-11
+Broj telefona: 0651234478
+Datum uzorkovanja:2020-08-27
+Datum nalaza:2020-08-27
+Cena: 2005.0
+
+Rezultati: 
+Grupa analiza: BIOHEMIJA| Parametar: CHOLESTEROL | Vasa vrednost: 42.59 |#|Min vrednost: 21.0 | Max vrednost: 80.0| Jedinica mere: g/L
+Grupa analiza: BIOHEMIJA| Parametar: ALT | Vasa vrednost: 49.19 |#|Min vrednost: 21.0 | Max vrednost: 80.0| Jedinica mere: g/L
+Grupa analiza: HORMONI| Parametar: PTH | Vasa vrednost: 1.93 |#|Min vrednost: 0.27 | Max vrednost: 4.2| Jedinica mere: mmol/L
+Grupa analiza: HORMONI| Parametar: TOSTESTERON | Vasa vrednost: 0.00 |#|Min vrednost: 0.0 | Max vrednost: 0.0| Jedinica mere: mmol/L

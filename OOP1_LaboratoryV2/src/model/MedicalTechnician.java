@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDate;
 
-import enums.Sex;
 import enums.StrucnaSprema;
 
 public class MedicalTechnician extends User {
