@@ -28,11 +28,24 @@ public class DataBase {
 	public static ArrayList<MedicalFinding> medicalFindings = new ArrayList<MedicalFinding>();
 	public static ArrayList<Analysis> analysis = new ArrayList<Analysis>();
 	public static PriceList priceList = new PriceList();
+	public static ArrayList<Salary> salaries = new ArrayList<Salary>();
 
 	static BufferedWriter bw;
 	static FileWriter fw;
+	
+	
 
-	public static void loadAnalysis() {
+	public DataBase() {
+		loadUsers();
+		loadReferenceValues();
+		loadAnalysis();
+		loadMedicalFindings();
+		loadAppointment();
+		loadPriceList();
+		loadSalaries();
+	}
+
+	public void loadAnalysis() {
 		try {
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(new FileInputStream("src/Data/analysis.txt"), "utf-8"));
@@ -55,6 +68,7 @@ public class DataBase {
 				a.setReferenceValue(DataBase.getReferenceValueById(Integer.parseInt(tokens[5])));
 				DataBase.analysis.add(a);
 			}
+			in.close();
 		}
 
 		catch (Exception e) {
@@ -62,17 +76,19 @@ public class DataBase {
 		}
 	}
 
-	private static ReferenceValue getReferenceValueById(int id) {
-		ReferenceValue rv = null;
+	public static ArrayList<String> getAnalysisByGroup(Scanner sc, AnalysisGroup ag) {
+		ArrayList<String> params = new ArrayList<String>();
 		for (String key : DataBase.referenceValues.keySet()) {
-			if (DataBase.referenceValues.get(key).getId() == id) {
-				rv = DataBase.referenceValues.get(key);
+			if (DataBase.referenceValues.get(key).getAnalysisGroup().equals(ag)) {
+				params.add(DataBase.referenceValues.get(key).getName());
 			}
+
 		}
-		return rv;
+		return params;
+
 	}
 
-	public static void loadMedicalFindings() {
+	public void loadMedicalFindings() {
 		try {
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(new FileInputStream("src/Data/medicalFindings.txt"), "utf-8"));
@@ -100,6 +116,7 @@ public class DataBase {
 				mf.setDone(Boolean.valueOf(tokens[5]));
 				DataBase.medicalFindings.add(mf);
 			}
+			in.close();
 		}
 
 		catch (Exception e) {
@@ -107,7 +124,17 @@ public class DataBase {
 		}
 	}
 
-	public static void loadReferenceValues() {
+	private static MedicalFinding getMedicalFindingByID(int id) {
+		MedicalFinding mfinding = null;
+		for (MedicalFinding mf : DataBase.medicalFindings) {
+			if (mf.getId() == id) {
+				mfinding = mf;
+			}
+		}
+		return mfinding;
+	}
+
+	public void loadReferenceValues() {
 		try {
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(new FileInputStream("src/Data/ReferenceValues.txt"), "utf-8"));
@@ -145,13 +172,28 @@ public class DataBase {
 				rv.setPrice(Double.parseDouble(tokens[8].trim()));
 				DataBase.referenceValues.put(rv.getName(), rv);
 			}
+			in.close();
 		}
 
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
+	private static ReferenceValue getReferenceValueById(int id) {
+		ReferenceValue rv = null;
+		for (String key : DataBase.referenceValues.keySet()) {
+			if (DataBase.referenceValues.get(key).getId() == id) {
+				rv = DataBase.referenceValues.get(key);
+			}
+		}
+		return rv;
+	}
+
+	public static ReferenceValue getReferenceValueByParam(String param) {
+		return referenceValues.get(param);
+	}
+
 	public static void loadPriceList() {
 		try {
 			BufferedReader in = new BufferedReader(
@@ -160,36 +202,70 @@ public class DataBase {
 			while ((s = in.readLine()) != null) {
 				s = s.trim();
 				String[] tokens = s.split("\\|");
-				if (tokens[0].trim().toUpperCase().equals("HOMEVISIT")) {
-					priceList.setHomeVisit(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("HOMEVISITTIME")) {
-					priceList.setHomeVisitTime(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("EARNINGBASIC")) {
-					priceList.setEarningBasic(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("ANALYSISBONUS")) {
-					priceList.setAnalysisBonus(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("SSS4_COEFFICIENT")) {
-					priceList.setSSS4_coefficient(Double.parseDouble(tokens[1]));
-				}else if (tokens[0].trim().toUpperCase().equals("SSS6_COEFFICIENT")) {
-					priceList.setSSS6_coefficient(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("SSS8_COEFFICIENT")) {
-					priceList.setSSS8_coefficient(Double.parseDouble(tokens[1]));
-				} else if (tokens[0].trim().toUpperCase().equals("SPECIALIZATIONBONUS")) {
-					priceList.setEarningBasic(Double.parseDouble(tokens[1]));
+				if (tokens[0].contains("H")) {
+					continue;
 				}
-				
+				priceList.setHomeVisit(Double.valueOf(tokens[0].trim()));
+				priceList.setHomeVisitTime(Double.valueOf(tokens[1].trim()));
+				priceList.setEarningBasic(Double.valueOf(tokens[2].trim()));
+				priceList.setHomeVisitBonus(Double.valueOf(tokens[3].trim()));
+				priceList.setAnalysisBonus(Double.valueOf(tokens[4].trim()));
+				priceList.setSSS4_coefficient(Double.valueOf(tokens[5].trim()));
+				priceList.setSSS6_coefficient(Double.valueOf(tokens[6].trim()));
+				priceList.setSSS8_coefficient(Double.valueOf(tokens[7].trim()));
+				priceList.setSpecialisationBonus(Double.valueOf(tokens[8].trim()));
+
 			}
+			in.close();
 		}
 
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	public static ReferenceValue getReferenceValueByParam(String param) {
-		return referenceValues.get(param);
+
+	public void loadAppointment() {
+		try {
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/Data/appointments.txt"), "utf-8"));
+			String s;
+			while ((s = in.readLine()) != null) {
+				s = s.trim();
+				String[] tokens = s.split("\\|");
+				Appointment a = new Appointment();
+				a.setId(Integer.parseInt(tokens[0]));
+				a.setDate(LocalDate.parse(tokens[1]));
+				if (tokens[2].equals("null")) {
+					a.setTime(null);
+				} else {
+					a.setTime(LocalTime.parse(tokens[2].trim()));
+				}
+				if (tokens[3].trim().equals("HOME")) {
+					a.setSubmissionType(SubmissionType.HOME);
+				} else if (tokens[3].trim().equals("LABORATORY")) {
+					a.setSubmissionType(SubmissionType.LABORATORY);
+				}
+
+				if (tokens[4].trim().equals("READY")) {
+					a.setSubmissionStatus(SubmissionStatus.READY);
+				} else if (tokens[4].trim().equals("NOT_READY")) {
+					a.setSubmissionStatus(SubmissionStatus.NOT_READY);
+				} else if (tokens[4].trim().equals("DONE")) {
+					a.setSubmissionStatus(SubmissionStatus.DONE);
+				}
+
+				a.setMedicalFinding(getMedicalFindingByID(Integer.parseInt(tokens[5])));
+				DataBase.appointments.add(a);
+			}
+			in.close();
+		}
+
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
-	public static void loadUsers() {
+	public void loadUsers() {
 		try {
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(new FileInputStream("src/Data/users.txt"), "utf-8"));
@@ -204,10 +280,10 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("male")) {
+					if (tokens[5].trim().equalsIgnoreCase("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("female")) {
-						u.setSex(Sex.MALE);
+					} else if (tokens[5].trim().equalsIgnoreCase("female")) {
+						u.setSex(Sex.FEMALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
 					u.setAddress(tokens[7]);
@@ -220,10 +296,10 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("male")) {
+					if (tokens[5].trim().equalsIgnoreCase("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("female")) {
-						u.setSex(Sex.MALE);
+					} else if (tokens[5].trim().equalsIgnoreCase("female")) {
+						u.setSex(Sex.FEMALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
 					u.setAddress(tokens[7]);
@@ -262,10 +338,10 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("male")) {
+					if (tokens[5].trim().equalsIgnoreCase("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("female")) {
-						u.setSex(Sex.MALE);
+					} else if (tokens[5].trim().equalsIgnoreCase("female")) {
+						u.setSex(Sex.FEMALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
 					u.setAddress(tokens[7]);
@@ -286,10 +362,10 @@ public class DataBase {
 					u.setUsername(tokens[2]);
 					u.setPassword(tokens[3]);
 					u.setLbo(tokens[4]);
-					if (tokens[5].trim().equals("male")) {
+					if (tokens[5].trim().equalsIgnoreCase("male")) {
 						u.setSex(Sex.MALE);
-					} else if (tokens[5].trim().equals("female")) {
-						u.setSex(Sex.MALE);
+					} else if (tokens[5].trim().equalsIgnoreCase("female")) {
+						u.setSex(Sex.FEMALE);
 					}
 					u.setDateOfBirth(LocalDate.parse(tokens[6]));
 					u.setAddress(tokens[7]);
@@ -303,6 +379,7 @@ public class DataBase {
 					}
 
 					u.setDateStarted(LocalDate.parse(tokens[11]));
+					u.setNumberOfVisits(Integer.parseInt(tokens[12]));
 					// To-Do Specijalizacije
 					// u.setSpecijalizacije(specijalizacije);
 					DataBase.users.put(u.getLbo(), u);
@@ -324,15 +401,31 @@ public class DataBase {
 		}
 	}
 
-	public static ArrayList<String> getAnalysisByGroup(Scanner sc, AnalysisGroup ag) {
-		ArrayList<String> params = new ArrayList<String>();
-		for (String key : DataBase.referenceValues.keySet()) {
-			if (DataBase.referenceValues.get(key).getAnalysisGroup().equals(ag)) {
-				params.add(DataBase.referenceValues.get(key).getName());
+	public void loadSalaries() {
+		try {
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(new FileInputStream("src/Data/salaries.txt"), "utf-8"));
+			String s;
+			while ((s = in.readLine()) != null) {
+				s = s.trim();
+				String[] tokens = s.split("\\|");
+				Salary e = new Salary();
+				e.setId(Integer.parseInt(tokens[0].trim()));
+				e.setUser(DataBase.users.get(tokens[1].trim()));
+				e.setDateFrom(LocalDate.parse(tokens[2].trim()));
+				e.setDateUntil(LocalDate.parse(tokens[3].trim()));
+				e.setBasic(Double.valueOf(tokens[4].trim()));
+				e.setAmount(Double.valueOf(tokens[5].trim()));
+
+				DataBase.salaries.add(e);
 			}
 
+			in.close();
 		}
-		return params;
+
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 
@@ -391,54 +484,6 @@ public class DataBase {
 
 	}
 
-	public static void loadAppointment() {
-		try {
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(new FileInputStream("src/Data/appointments.txt"), "utf-8"));
-			String s;
-			while ((s = in.readLine()) != null) {
-				s = s.trim();
-				String[] tokens = s.split("\\|");
-				Appointment a = new Appointment();
-				a.setId(Integer.parseInt(tokens[0]));
-				a.setDate(LocalDate.parse(tokens[1]));
-				if(tokens[2].equals("null")) {
-					a.setTime(null);
-				}
-				else {
-					a.setTime(LocalTime.parse(tokens[2].trim()));
-				}
-				if (tokens[3].trim().equals("HOME")) {
-					a.setSubmissionType(SubmissionType.HOME);
-				} else if (tokens[3].trim().equals("LABORATORY")) {
-					a.setSubmissionType(SubmissionType.LABORATORY);
-				}
-
-				if (tokens[4].trim().equals("READY")) {
-					a.setSubmissionStatus(SubmissionStatus.READY);
-				} else if (tokens[4].trim().equals("NOT_READY")) {
-					a.setSubmissionStatus(SubmissionStatus.NOT_READY);
-				}
-				a.setMedicalFinding(getMedicalFindingByID(Integer.parseInt(tokens[5])));
-				DataBase.appointments.add(a);
-			}
-		}
-
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	private static MedicalFinding getMedicalFindingByID(int id) {
-		MedicalFinding mfinding = null;
-		for (MedicalFinding mf : DataBase.medicalFindings) {
-			if (mf.getId() == id) {
-				mfinding = mf;
-			}
-		}
-		return mfinding;
-	}
-
 	public static void saveReferenceValue() {
 		String sadrzaj = "";
 		for (String key : DataBase.referenceValues.keySet()) {
@@ -447,6 +492,44 @@ public class DataBase {
 		}
 		try {
 			fw = new FileWriter("src/Data/ReferenceValues.txt");
+			bw = new BufferedWriter(fw);
+			bw.write(sadrzaj);
+			bw.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void saveUser() {
+		String sadrzaj = "";
+		for (String key : DataBase.users.keySet()) {
+			sadrzaj += DataBase.users.get(key).toString() + "\n";
+
+		}
+		try {
+			fw = new FileWriter("src/Data/users.txt");
+			bw = new BufferedWriter(fw);
+			bw.write(sadrzaj);
+			bw.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void saveSalaries() {
+		String sadrzaj = "";
+		for (Salary s : DataBase.salaries) {
+			sadrzaj += s.toString() + "\n";
+
+		}
+		try {
+			fw = new FileWriter("src/Data/salaries.txt");
 			bw = new BufferedWriter(fw);
 			bw.write(sadrzaj);
 			bw.close();

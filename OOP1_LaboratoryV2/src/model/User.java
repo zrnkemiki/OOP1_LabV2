@@ -2,7 +2,9 @@ package model;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+import enums.AnalysisGroup;
 import enums.Sex;
 
 public abstract class User {
@@ -90,6 +92,38 @@ public abstract class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	private String checkType() {
+		if(this instanceof Patient) {
+			return "PACIJENT";
+		}
+		else if(this instanceof Laborant) {
+			Laborant a = (Laborant) this;
+			String spec = "";
+			for (AnalysisGroup ag : a.getSpecializations()) {
+				spec += ag.toString() + ",";
+			}
+			spec = spec.substring(0, spec.length() - 1);
+			return "LABORANT|" + a.getStrucnaSprema() + "|" + spec + "|" +  a.getDateStarted();
+		}
+		else if(this instanceof MedicalTechnician) {
+			MedicalTechnician mt = (MedicalTechnician) this;
+			return "MEDICINSKI_TEHNICAR|" + mt.getStrucnaSprema() + "|" + mt.getDateStarted() + "|" + mt.getNumberOfVisits();
+		}
+		else {
+			Admin a = (Admin) this;
+			return "ADMIN|" + a.getStrucnaSprema();
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return firstName + "|" + lastName + "|" + username + "|"
+				+ password + "|" + lbo + "|" + sex + "|" + dateOfBirth + "|" + address
+				+ "|" + phoneNumber + "|" + checkType();
+	}
+	
+	
 	
 	
 	

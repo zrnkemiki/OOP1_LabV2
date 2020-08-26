@@ -106,21 +106,16 @@ public class PriceList {
 
 	@Override
 	public String toString() {
-		return "HOMEVISIT|" + homeVisit + "\n" + "HOMEVISITTIME|" + homeVisitTime + "\n" + "EARNINGBASIC|"
-				+ earningBasic + "\n" + "HOMEVISITBONUS|" + homeVisitBonus + "\n" +"ANALYSISBONUS|" + analysisBonus
-				+"\n" + "SSS4_COEFFICIENT|" + SSS4_coefficient + "\n" + "SSS6_COEFFICIENT|" + SSS6_coefficient + "\n"
-				+ "SSS6_COEFFICIENT|" + SSS8_coefficient + "\n" + "SPECIALIZATIONBONUS|" + specialisationBonus;
+		return homeVisit + "|" + homeVisitTime + "|" + earningBasic + "|" + homeVisitBonus + "|" + analysisBonus + "|"
+				+ SSS4_coefficient + "|" + SSS6_coefficient + "|" + SSS8_coefficient + "|" + specialisationBonus;
 	}
-	
-	
+
 	public String consoleView() {
 		return "1. HOMEVISIT|" + homeVisit + "\n" + "2. HOMEVISITTIME|" + homeVisitTime + "\n" + "3. EARNINGBASIC|"
-				+ earningBasic + "\n" + "4. HOMEVISITBONUS|" + homeVisitBonus + "\n" +"5. ANALYSISBONUS|" + analysisBonus
-				+"\n" + "6. SSS4_COEFFICIENT|" + SSS4_coefficient + "\n" + "7. SSS6_COEFFICIENT|" + SSS6_coefficient + "\n"
-				+ "8. SSS6_COEFFICIENT|" + SSS8_coefficient + "\n" + "9. SPECIALIZATIONBONUS|" + specialisationBonus;
+				+ earningBasic + "\n" + "4. HOMEVISITBONUS|" + homeVisitBonus + "\n" + "5. ANALYSISBONUS|"
+				+ analysisBonus + "\n" + "6. SSS4_COEFFICIENT|" + SSS4_coefficient + "\n" + "7. SSS6_COEFFICIENT|"
+				+ SSS6_coefficient + "\n" + "8. SSS6_COEFFICIENT|" + SSS8_coefficient + "\n" + "9. SPECIALIZATIONBONUS|"
+				+ specialisationBonus;
 	}
-	
-	
-	
 
 }

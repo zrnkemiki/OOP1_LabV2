@@ -8,7 +8,7 @@ import model.ReferenceValue;
 
 public class ReferenceValueService {
 	
-	public static void newReferenceValue(Scanner sc, AnalysisGroup ag) {
+	public void newReferenceValue(Scanner sc, AnalysisGroup ag) {
 		ReferenceValue rv = new ReferenceValue();
 		System.out.println("Unesite ime parametra:");
 		String param = IOHandler.stringInput(sc);
@@ -38,7 +38,7 @@ public class ReferenceValueService {
 		DataBase.saveReferenceValue();
 	}
 
-	public static void getAllReferenceValues() {
+	public void getAllReferenceValues() {
 		for (String key : DataBase.referenceValues.keySet()) {
 			System.out.println("Grupa: " + DataBase.referenceValues.get(key).getAnalysisGroup() + "| Naziv: " + DataBase.referenceValues.get(key).getName() + "| Cena analize: " + DataBase.referenceValues.get(key).getPrice());
 		}

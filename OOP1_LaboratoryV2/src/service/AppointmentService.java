@@ -9,17 +9,19 @@ import enums.SubmissionType;
 import model.Analysis;
 import model.Appointment;
 import model.DataBase;
+import model.Laborant;
 import model.MedicalFinding;
+import model.MedicalTechnician;
 import model.Patient;
 
 public class AppointmentService {
 	
-	public static void makeAppointment(Patient patient, Scanner sc) {
+	public void makeAppointment(Patient patient, Scanner sc) {
 		MedicalFinding mfinding = new MedicalFinding();
 		Appointment app = new Appointment();
 		System.out.println("Zakazivanje novog termina: ");
-		System.out.println("Unesite datum: ");
-		app.setDate(IOHandler.dateInput(sc));
+		System.out.println("Unesite datum [yyyy-MM-dd]: ");
+		app.setDate(IOHandler.dateInputAppointment(sc));
 		System.out.println("1) Uzorkovanje kod kuce");
 		System.out.println("2) Uzorkovanje u laboratoriji");
 		int input = MenuService.chooseMenuOption(3, false, sc);
@@ -66,12 +68,13 @@ public class AppointmentService {
 		
 	}
 	
-	public static void changeStatus(Appointment a) {
+	public void changeStatus(Appointment a, MedicalTechnician medicalTechnician) {
 		a.setSubmissionStatus(SubmissionStatus.READY);
 		DataBase.saveAppointment();
+		medicalTechnician.setNumberOfVisits(medicalTechnician.getNumberOfVisits() + 1);
 	}
 
-	public static ArrayList<Appointment> getTodayAppointments() {
+	public ArrayList<Appointment> getTodayAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
 			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() != SubmissionStatus.READY)){
@@ -81,7 +84,17 @@ public class AppointmentService {
 		return app;
 	}
 	
-	public static ArrayList<Appointment> getReadyAppointments() {
+	public ArrayList<Appointment> getTodayHomeAppointments() {
+		ArrayList<Appointment> app = new ArrayList<Appointment>();
+		for (Appointment appointment : DataBase.appointments) {
+			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() != SubmissionStatus.READY) && appointment.getSubmissionType() == SubmissionType.HOME){
+				app.add(appointment);
+			}
+		}
+		return app;
+	}
+	
+	public ArrayList<Appointment> getReadyAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
 			if (appointment.getSubmissionStatus() == SubmissionStatus.READY){
@@ -94,7 +107,7 @@ public class AppointmentService {
 		return app;
 	}
 
-	public static ArrayList<Appointment> getFutureAppointments() {
+	public ArrayList<Appointment> getFutureAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
 			if (appointment.getDate().isAfter((LocalDate.now().minusDays(1)))){
@@ -104,9 +117,9 @@ public class AppointmentService {
 		return app;
 	}
 
-	public static void showAppointments(ArrayList<Appointment> futureAppointments) {
+	public void showAppointments(ArrayList<Appointment> futureAppointments) {
 		for (Appointment appointment : futureAppointments) {
-			System.out.println(appointment.toString());
+			System.out.println(appointment.consoleView());
 		}
 		
 	}

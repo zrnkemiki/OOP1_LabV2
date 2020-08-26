@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class Earning {
+public class Salary {
 
 	private int id;
 	private User user;
@@ -11,12 +11,12 @@ public class Earning {
 	private double basic;
 	private double amount;
 
-	public Earning() {
+	public Salary() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Earning(int id, User user, LocalDate dateFrom, LocalDate dateUntil, double basic, double amount) {
+	public Salary(int id, User user, LocalDate dateFrom, LocalDate dateUntil, double basic, double amount) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -73,5 +73,13 @@ public class Earning {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	@Override
+	public String toString() {
+		return id + "|" + user.getLbo() + "|" + dateFrom + "|" + dateUntil
+				+ "|" + basic + "|" + amount;
+	}
+	
+	
 
 }

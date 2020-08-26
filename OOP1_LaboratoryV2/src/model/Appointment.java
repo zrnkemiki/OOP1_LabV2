@@ -90,9 +90,30 @@ public class Appointment {
 	public String toString() {
 		return id + "|" + date + "|" + time + "|"+ submissionType + "|" + submissionStatus + "|" + medicalFinding.getId();
 	}
+	
+	private String submissionTypeConsoleView() {
+		if(this.submissionType == SubmissionType.HOME) {
+			return "Uzimanje uzorka kod kuce.";
+		}
+		else{
+			return "Davanje uzorka u laboratoriji.";
+		}
+	}
+	
+private String submissionStatusView() {
+		if(this.submissionStatus == SubmissionStatus.NOT_READY) {
+			return "Termin je rezervisan nije uzet uzorak.";
+		}
+		else if(this.submissionStatus == SubmissionStatus.READY){
+			return "Uzorak je uzet, spremno je za analizu.";
+		}
+		else {
+			return "Sve analiza u ovom terminu su zavrsene.";
+		}
+	}
 
 	public String consoleView() {
-		return "Datum: " + date + checkTime() + "| Tip predaje: " + submissionType + "|Trenutni status:  " + submissionStatus;
+		return "Datum: " + date + checkTime() + "| Uzorkovanje: " + submissionTypeConsoleView() + "| Status:  " + submissionStatusView();
 	}
 
 }

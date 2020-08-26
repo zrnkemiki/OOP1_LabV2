@@ -1,0 +1,11 @@
+username|password|type
+jovan1  |jovan1  |PACIJENT
+milica  |milica  |PACIJENT
+jovan   |jovan   |PACIJENT
+marija  |marija  |LABORANT|HEMATOLOGIJA
+marko   |marko   |LABORANT|BIOHEMIJA
+milos   |milos   |LABORANT|HORMONI, BIOHEMIJA
+petar   |petar   |MEDICINSKI_TEHNICAR
+nikola  |nikola  |MEDICINSKI_TEHNICAR
+branko  |branko  |MEDICINSKI_TEHNICAR
+irena   |irena   |ADMIN

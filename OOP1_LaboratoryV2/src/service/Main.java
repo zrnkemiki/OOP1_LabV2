@@ -7,15 +7,12 @@ import model.DataBase;
 public class Main {
 
 	public static void main(String[] args) {
-		DataBase.loadUsers();
-		DataBase.loadReferenceValues();
-		DataBase.loadAnalysis();
-		DataBase.loadMedicalFindings();
-		DataBase.loadAppointment();
-		DataBase.loadPriceList();
 		
+		DataBase db = new DataBase();
+	
+			
 		System.out.println(DataBase.users.keySet());
-		
+		/*
 		for (String key : DataBase.referenceValues.keySet()) {
 			System.out.println(DataBase.referenceValues.get(key).toString());
 		}
@@ -23,12 +20,12 @@ public class Main {
 		System.out.println(DataBase.medicalFindings.toString());
 		System.out.println(DataBase.appointments.toString());
 		System.out.println(DataBase.priceList.consoleView());
-		
+		System.out.println(DataBase.salaries.toString());
+		*/
 		Scanner sc = new Scanner(System.in);
-		
 		MenuService menu = new MenuService();
 		menu.start(sc);
-
+		sc.close();
 
 	}
 

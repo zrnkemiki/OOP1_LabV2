@@ -94,9 +94,18 @@ public class MedicalFinding {
 
 		return id + "|" + getAnalysisID() + "|" + date + "|" + patient.getLbo() + "|" + price + "|" + done;
 	}
+	
+	private String statusConsoleView() {
+		if(this.isDone()) {
+			return "Nalaz je zavrsen.";
+		}
+		else {
+			return "Nalaz je jos uvek u izradi";
+		}
+	}
 
 	public String consoleView() {
-		return date + "|" + patient.getLbo() + "|" + price + "|" + done;
+		return "Datum nalaza: " + date + "| Pacijentov LBO: " + patient.getLbo() + "| Cena nalaza: " + price + "|Status: " + statusConsoleView();
 	}
 
 }

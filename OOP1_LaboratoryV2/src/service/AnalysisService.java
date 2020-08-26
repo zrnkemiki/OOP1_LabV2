@@ -2,10 +2,9 @@ package service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Random;
 
-import enums.AnalysisGroup;
 import enums.Sex;
+import enums.SubmissionStatus;
 import model.Analysis;
 import model.Appointment;
 import model.DataBase;
@@ -14,7 +13,7 @@ import model.MedicalFinding;
 
 public class AnalysisService {
 
-	public static void doAnalysis(Analysis a) {
+	public void doAnalysis(Analysis a) {
 		MedicalFinding mfinding = null;
 
 		for (MedicalFinding mf : DataBase.medicalFindings) {
@@ -45,6 +44,8 @@ public class AnalysisService {
 			}
 		}
 
+		System.out.println("Uradjena je analiza "+ a.getName());
+
 		if (flag) {
 			mfinding.setDone(true);
 			System.out.println("Nalaz pacijenta " + mfinding.getPatient().getFirstName() + ""
@@ -53,19 +54,20 @@ public class AnalysisService {
 
 			for (Appointment app : DataBase.appointments) {
 				if (app.getMedicalFinding().getId() == mfinding.getId()) {
+					app.setSubmissionStatus(SubmissionStatus.DONE);
 					if (app.getTime() != null) {
 						mfinding.setPrice(mfinding.getPrice() + DataBase.priceList.getHomeVisitTime());
 					}
 				}
 			}
 		}
-
+		DataBase.saveAppointment();
 		DataBase.saveAnalysis();
 		DataBase.saveMedicalFinding();
 
 	}
 
-	public static ArrayList<Analysis> getAnalysis(Laborant laborant, ArrayList<Appointment> readyAppointments) {
+	public ArrayList<Analysis> getAnalysis(Laborant laborant, ArrayList<Appointment> readyAppointments) {
 		ArrayList<Analysis> analysisToDo = new ArrayList<Analysis>();
 		for (Appointment app : readyAppointments) {
 			for (Analysis analysis : app.getMedicalFinding().getAnalysis()) {
@@ -78,6 +80,13 @@ public class AnalysisService {
 			System.out.println("Nemate spremnih analiza iz vase oblasti za obradu.");
 		}
 		return analysisToDo;
+	}
+
+	public void showAnalysis(ArrayList<Analysis> a) {
+		for (Analysis analysis : a) {
+			System.out.println(analysis.consoleView());
+		}
+		
 	}
 
 }

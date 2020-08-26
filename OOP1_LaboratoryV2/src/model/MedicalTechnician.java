@@ -8,7 +8,7 @@ import enums.StrucnaSprema;
 public class MedicalTechnician extends User {
 	private StrucnaSprema strucnaSprema;
 	private LocalDate dateStarted;
-	
+	private int numberOfVisits;
 		
 	
 	public MedicalTechnician() {
@@ -16,10 +16,23 @@ public class MedicalTechnician extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MedicalTechnician(String firstName, String lastName, String username, String password, Sex sex, String lbo,
-			String address, LocalDate dateOfBirth, String phoneNumber) {
-		super(firstName, lastName, username, password, sex, lbo, address, dateOfBirth, phoneNumber);
-		// TODO Auto-generated constructor stub
+	
+	
+	public MedicalTechnician(StrucnaSprema strucnaSprema, LocalDate dateStarted, int numberOfVisits) {
+		super();
+		this.strucnaSprema = strucnaSprema;
+		this.dateStarted = dateStarted;
+		this.numberOfVisits = numberOfVisits;
+	}
+
+
+
+	public int getNumberOfVisits() {
+		return numberOfVisits;
+	}
+
+	public void setNumberOfVisits(int numberOfVisits) {
+		this.numberOfVisits = numberOfVisits;
 	}
 
 	public LocalDate getDateStarted() {
