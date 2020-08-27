@@ -1,6 +1,8 @@
 package service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import enums.AnalysisGroup;
@@ -23,6 +25,7 @@ public class MenuService {
 	private MedicalFindingService medicalFindingService;
 	private SalaryService salaryService;
 	private UserService userService;
+	private ReportService reportService;
 
 	public MenuService() {
 		referenceValueService = new ReferenceValueService();
@@ -31,6 +34,7 @@ public class MenuService {
 		medicalFindingService = new MedicalFindingService();
 		salaryService = new SalaryService();
 		userService = new UserService();
+		reportService = new ReportService();
 	}
 
 	public void start(Scanner sc) {
@@ -60,8 +64,9 @@ public class MenuService {
 		System.out.println("3) Dodavanje analize");
 		System.out.println("4) Cenovnik svih analiza");
 		System.out.println("5) Dodavanje specijalizacija laborantu");
+		System.out.println("6) Izvestaji");
 		System.out.println("0) Odjavljivanje.");
-		int input = chooseMenuOption(6, true, sc);
+		int input = chooseMenuOption(7, true, sc);
 		switch (input) {
 		case 1:
 			System.out.println("-------------------------------------\n");
@@ -91,11 +96,60 @@ public class MenuService {
 			System.out.println("Cenovnih svih analiza");
 			userService.addSpecialisation(sc);
 			break;
+		case 6:
+			reportsMenu(sc);
+			break;
 		case 0:
 			System.out.println("Uspesno ste se izlogovali. \n");
 			user = null;
 			start(sc);
 			break;
+		}
+	}
+	
+	public void reportsMenu(Scanner sc) {
+		System.out.println("1) Izvestaji broju nalaza i ceni za period");
+		System.out.println("2) Izvestaji o grupi analiza period");
+		System.out.println("0) Nazad");
+		int input = chooseMenuOption(3, true, sc);
+		if(input == 1) {
+			System.out.println("Unesite datum OD [yyyy-MM-dd]: ");
+			LocalDate from = IOHandler.dateInput(sc);
+			System.out.println("Unesite datum DO [yyyy-MM-dd]: ");
+			LocalDate until = IOHandler.dateInput(sc);
+			reportService.generatePatientReport(from, until);
+		}
+		else if(input == 2) {
+			List<AnalysisGroup> groups = new ArrayList<AnalysisGroup>();
+			boolean flag = true;
+			System.out.println("Unesite datum OD [yyyy-MM-dd]: ");
+			LocalDate from = IOHandler.dateInput(sc);
+			System.out.println("Unesite datum DO [yyyy-MM-dd]: ");
+			LocalDate until = IOHandler.dateInput(sc);
+			while(flag) {
+				if(groups.size() == 3) {
+					flag = false;
+					reportService.generatePatientReportFilterByGroup(from, until, groups);
+					break;
+				}
+				AnalysisGroup ag = chooseAnalysisGroupMenu(sc);
+				if (groups.contains(ag)) {
+					System.out.println("Ovu grupu ste vec izabrali. Izaberite drugu");
+					break;
+				}
+				else {
+					groups.add(ag);
+				}
+				
+				System.out.println("Da li zelite izvestaj za jos neku od grupa?\n 1)Da \n2)Ne");
+				input = chooseMenuOption(3, false, sc);
+				if(input==2) {
+					flag = false;
+					reportService.generatePatientReportFilterByGroup(from, until, groups);
+					break;
+				}
+				
+			}
 		}
 	}
 

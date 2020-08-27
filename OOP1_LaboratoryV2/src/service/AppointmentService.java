@@ -9,7 +9,6 @@ import enums.SubmissionType;
 import model.Analysis;
 import model.Appointment;
 import model.DataBase;
-import model.Laborant;
 import model.MedicalFinding;
 import model.MedicalTechnician;
 import model.Patient;
@@ -71,7 +70,11 @@ public class AppointmentService {
 	public void changeStatus(Appointment a, MedicalTechnician medicalTechnician) {
 		a.setSubmissionStatus(SubmissionStatus.READY);
 		DataBase.saveAppointment();
-		medicalTechnician.setNumberOfVisits(medicalTechnician.getNumberOfVisits() + 1);
+		if(a.getSubmissionType() == SubmissionType.HOME) {
+			medicalTechnician.setNumberOfVisits(medicalTechnician.getNumberOfVisits() + 1);
+			DataBase.saveUser();
+		}
+
 	}
 
 	public ArrayList<Appointment> getTodayAppointments() {

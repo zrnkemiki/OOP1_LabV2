@@ -1,7 +1,11 @@
 package service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import enums.AnalysisGroup;
 import model.DataBase;
 import model.Salary;
 
@@ -29,6 +33,9 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		MenuService menu = new MenuService();
+		ReportService rp = new ReportService();
+		
+		
 		menu.start(sc);
 		sc.close();
 
