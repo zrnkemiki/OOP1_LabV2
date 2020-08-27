@@ -69,5 +69,15 @@ public class MedicalFindingService {
 			e.printStackTrace();
 		}
 	}
+	
+	public static List<MedicalFinding> getByDate(LocalDate from, LocalDate to) {
+		List<MedicalFinding> found = new ArrayList<MedicalFinding>();
+		for (MedicalFinding mf : DataBase.medicalFindings) {
+			if (mf.getDate().isAfter(from) && mf.getDate().isBefore(to)) {
+				found.add(mf);
+			}
+		}
+		return found;
+	}
 }
 
