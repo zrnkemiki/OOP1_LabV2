@@ -16,8 +16,8 @@ import model.Patient;
 
 public class MedicalFindingService {
 	
-	public ArrayList<MedicalFinding> getPatientMedicalFindings(Patient patient) {
-		ArrayList<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
+	public List<MedicalFinding> getPatientMedicalFindings(Patient patient) {
+		List<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		for (MedicalFinding mf : DataBase.medicalFindings) {
 			if(mf.isDone() && mf.getPatient().getLbo().equals(patient.getLbo())) {
 				mfs.add(mf);
@@ -30,7 +30,7 @@ public class MedicalFindingService {
 	public void exportMedicalFinding(MedicalFinding mf) {
 		BufferedWriter bw;
 		FileWriter fw;
-		ArrayList<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
+		List<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		String data = "";
 		String pol = "";
 		LocalDate dateTaken = null;

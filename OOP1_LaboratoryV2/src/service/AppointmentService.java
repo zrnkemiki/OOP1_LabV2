@@ -113,7 +113,7 @@ public class AppointmentService {
 	public ArrayList<Appointment> getFutureAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
-			if (appointment.getDate().isAfter((LocalDate.now().minusDays(1)))){
+			if (appointment.getDate().isAfter((LocalDate.now().minusDays(1))) && appointment.getSubmissionStatus() != SubmissionStatus.DONE){
 				app.add(appointment);
 			}
 		}

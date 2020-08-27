@@ -73,7 +73,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja analiza!");
+			e.printStackTrace();
 		}
 	}
 
@@ -121,7 +122,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja nalaza!");
+			e.printStackTrace();
 		}
 	}
 
@@ -177,7 +179,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja referentnih vrednosti!");
+			e.printStackTrace();
 		}
 	}
 
@@ -221,7 +224,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja cenovnika.");
+			e.printStackTrace();
 		}
 	}
 
@@ -262,7 +266,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja termina.");
+			e.printStackTrace();
 		}
 	}
 
@@ -425,7 +430,8 @@ public class DataBase {
 		}
 
 		catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Greska prilikom ucitavanja plata!");
+			e.printStackTrace();
 		}
 
 	}

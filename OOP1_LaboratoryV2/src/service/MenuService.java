@@ -164,7 +164,7 @@ public class MenuService {
 		case 1:
 			System.out.println("-------------------------------------\n");
 			System.out.println("Pregled nalaza");
-			ArrayList<MedicalFinding> mf = medicalFindingService.getPatientMedicalFindings((Patient) user);
+			List<MedicalFinding> mf = medicalFindingService.getPatientMedicalFindings((Patient) user);
 			if (mf.isEmpty()) {
 				System.out.println("Nemate gotovih nalaza.");
 				break;
@@ -257,7 +257,7 @@ public class MenuService {
 		case 2:
 			System.out.println("-------------------------------------\n");
 			System.out.println("Analize spremne za obradu, izberite: ");
-			ArrayList<Analysis> a1 = analysisService.getAnalysis((Laborant) user,
+			List<Analysis> a1 = analysisService.getAnalysis((Laborant) user,
 					appointmentService.getReadyAppointments());
 			if (a1.isEmpty()) {
 				break;
@@ -272,7 +272,7 @@ public class MenuService {
 		}
 	}
 
-	private MedicalFinding chooseMedicalFindingMenu(ArrayList<MedicalFinding> medicalFindings, Scanner sc) {
+	private MedicalFinding chooseMedicalFindingMenu(List<MedicalFinding> medicalFindings, Scanner sc) {
 		for (int i = 0; i < medicalFindings.size(); i++) {
 			System.out.println(i + 1 + ")" + medicalFindings.get(i).consoleView());
 		}
@@ -280,7 +280,7 @@ public class MenuService {
 	}
 
 	private ReferenceValue chooseReferenceValueMenu(Scanner sc) {
-		ArrayList<ReferenceValue> rvs = new ArrayList<ReferenceValue>();
+		List<ReferenceValue> rvs = new ArrayList<ReferenceValue>();
 		for (String key : DataBase.referenceValues.keySet()) {
 			rvs.add(DataBase.referenceValues.get(key));
 		}
@@ -331,7 +331,7 @@ public class MenuService {
 		return AnalysisGroup.values()[input - 1];
 	}
 
-	public static Analysis chooseAnalysis(Scanner sc, ArrayList<Analysis> analysis) {
+	public static Analysis chooseAnalysis(Scanner sc, List<Analysis> analysis) {
 		for (int i = 0; i < analysis.size(); i++) {
 			System.out.println(i + 1 + ")" + analysis.get(i).consoleView());
 		}
@@ -346,7 +346,7 @@ public class MenuService {
 		return params.get(chooseMenuOption(params.size() + 1, false, sc) - 1);
 	}
 
-	public static Appointment chooseAppointmentMenu(Scanner sc, ArrayList<Appointment> apps) {
+	public static Appointment chooseAppointmentMenu(Scanner sc, List<Appointment> apps) {
 		for (int i = 0; i < apps.size(); i++) {
 			System.out.println(i + 1 + ")" + apps.get(i).consoleView());
 		}
