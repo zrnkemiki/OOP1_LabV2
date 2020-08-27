@@ -2,6 +2,7 @@ package service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import enums.Sex;
 import enums.SubmissionStatus;
@@ -67,8 +68,8 @@ public class AnalysisService {
 
 	}
 
-	public ArrayList<Analysis> getAnalysis(Laborant laborant, ArrayList<Appointment> readyAppointments) {
-		ArrayList<Analysis> analysisToDo = new ArrayList<Analysis>();
+	public List<Analysis> getAnalysis(Laborant laborant, List<Appointment> readyAppointments) {
+		List<Analysis> analysisToDo = new ArrayList<Analysis>();
 		for (Appointment app : readyAppointments) {
 			for (Analysis analysis : app.getMedicalFinding().getAnalysis()) {
 				if (!analysis.isDone() && laborant.getSpecializations().contains(analysis.getAnalysisGroup())) {
@@ -82,7 +83,7 @@ public class AnalysisService {
 		return analysisToDo;
 	}
 
-	public void showAnalysis(ArrayList<Analysis> a) {
+	public void showAnalysis(List<Analysis> a) {
 		for (Analysis analysis : a) {
 			System.out.println(analysis.consoleView());
 		}

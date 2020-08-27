@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import enums.Sex;
 import model.Analysis;
@@ -15,8 +16,8 @@ import model.Patient;
 
 public class MedicalFindingService {
 	
-	public ArrayList<MedicalFinding> getPatientMedicalFindings(Patient patient) {
-		ArrayList<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
+	public List<MedicalFinding> getPatientMedicalFindings(Patient patient) {
+		List<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		for (MedicalFinding mf : DataBase.medicalFindings) {
 			if(mf.isDone() && mf.getPatient().getLbo().equals(patient.getLbo())) {
 				mfs.add(mf);
@@ -29,7 +30,7 @@ public class MedicalFindingService {
 	public void exportMedicalFinding(MedicalFinding mf) {
 		BufferedWriter bw;
 		FileWriter fw;
-		ArrayList<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
+		List<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		String data = "";
 		String pol = "";
 		LocalDate dateTaken = null;
