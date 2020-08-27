@@ -1,12 +1,12 @@
 package service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import enums.AnalysisGroup;
 import model.Analysis;
+import model.DataBase;
 import model.MedicalFinding;
 import model.Patient;
 import model.Salary;
@@ -18,16 +18,30 @@ public class ReportService {
 		
 	}
 	
-	public void generateExpensesReport(LocalDate from, LocalDate to, List<DayOfWeek> days) {
+	public void generateExpensesReport(LocalDate from, LocalDate to) {
+		double expenses = 0;
 		for (Salary s : SalaryService.getSalariesByDate(from, to)) {
-			if (true) {
-				//asd
-			}
+			System.out.println(s.consoleView());
+			expenses += s.getAmount();
 		}
+		System.out.println("=============================================");
+		System.out.println("Ukupan rashod od isplata plata:");
+		System.out.println("Period OD " + from + " -- DO " + to);
+		System.out.println("Iznos rashoda: " + expenses);
 	}
 	
-	public void generateIncomeReport() {
-		
+	public void generateIncomeReport(LocalDate from, LocalDate to) {
+		double income = 0;
+		for (MedicalFinding mf : DataBase.medicalFindings) {
+			if(mf.getDate().isAfter(from) && mf.getDate().isBefore(to)) {
+				System.out.println(mf.consoleView());
+				income += mf.getPrice();
+			}
+		}
+		System.out.println("=============================================");
+		System.out.println("Ukupan prihod od nalaza i uzimanja uzoraka:");
+		System.out.println("Period OD " + from + " -- DO " + to);
+		System.out.println("Iznos prihoda: " + income);
 	}
 	
 	

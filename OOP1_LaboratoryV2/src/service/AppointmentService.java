@@ -80,7 +80,7 @@ public class AppointmentService {
 	public ArrayList<Appointment> getTodayAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
-			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() != SubmissionStatus.READY)){
+			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() == SubmissionStatus.NOT_READY)){
 				app.add(appointment);
 			}
 		}
@@ -90,7 +90,7 @@ public class AppointmentService {
 	public ArrayList<Appointment> getTodayHomeAppointments() {
 		ArrayList<Appointment> app = new ArrayList<Appointment>();
 		for (Appointment appointment : DataBase.appointments) {
-			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() != SubmissionStatus.READY) && appointment.getSubmissionType() == SubmissionType.HOME){
+			if (appointment.getDate().equals(LocalDate.now()) && (appointment.getSubmissionStatus() == SubmissionStatus.NOT_READY) && appointment.getSubmissionType() == SubmissionType.HOME){
 				app.add(appointment);
 			}
 		}

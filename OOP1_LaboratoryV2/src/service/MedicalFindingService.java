@@ -19,7 +19,7 @@ public class MedicalFindingService {
 	public List<MedicalFinding> getPatientMedicalFindings(Patient patient) {
 		List<MedicalFinding> mfs = new ArrayList<MedicalFinding>();
 		for (MedicalFinding mf : DataBase.medicalFindings) {
-			if(mf.isDone() && mf.getPatient().getLbo().equals(patient.getLbo())) {
+			if(mf.getPatient().getLbo().equals(patient.getLbo())) {
 				mfs.add(mf);
 			}
 			

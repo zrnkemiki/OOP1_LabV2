@@ -4,10 +4,10 @@ Datum rodjenja: 1995-09-11
 Broj telefona: 0651234478
 Datum uzorkovanja:2020-08-27
 Datum nalaza:2020-08-27
-Cena: 2005.0
+Cena: 1975.0
 
 Rezultati: 
-Grupa analiza: BIOHEMIJA| Parametar: CHOLESTEROL | Vasa vrednost: 42.59 |#|Min vrednost: 21.0 | Max vrednost: 80.0| Jedinica mere: g/L
-Grupa analiza: BIOHEMIJA| Parametar: ALT | Vasa vrednost: 49.19 |#|Min vrednost: 21.0 | Max vrednost: 80.0| Jedinica mere: g/L
-Grupa analiza: HORMONI| Parametar: PTH | Vasa vrednost: 1.93 |#|Min vrednost: 0.27 | Max vrednost: 4.2| Jedinica mere: mmol/L
-Grupa analiza: HORMONI| Parametar: TOSTESTERON | Vasa vrednost: 0.00 |#|Min vrednost: 0.0 | Max vrednost: 0.0| Jedinica mere: mmol/L
+Grupa analiza: BIOHEMIJA| Parametar: CHOLESTEROL | Vasa vrednost: 84.68 |#|Min vrednost: 21.0 | Max vrednost: 80.0| Jedinica mere: g/L
+Grupa analiza: BIOHEMIJA| Parametar: GVOZDJE | Vasa vrednost: 29.77 |#|Min vrednost: 5.8 | Max vrednost: 34.5| Jedinica mere: mmol/L
+Grupa analiza: HORMONI| Parametar: PTH | Vasa vrednost: 3.19 |#|Min vrednost: 0.27 | Max vrednost: 4.2| Jedinica mere: mmol/L
+Grupa analiza: HEMATOLOGIJA| Parametar: MCV | Vasa vrednost: 69.77 |#|Min vrednost: 83.0 | Max vrednost: 97.0| Jedinica mere: fL

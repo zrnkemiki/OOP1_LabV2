@@ -1,0 +1,10 @@
+Pacijent: Jovan Jovic
+Pol:MUSKI
+Datum rodjenja: 1996-08-13
+Broj telefona: 123123123
+Datum uzorkovanja:2020-08-27
+Datum nalaza:2020-08-27
+Cena: 120.0
+
+Rezultati: 
+Grupa analiza: BIOHEMIJA| Parametar: AST | Vasa vrednost: 43.44 |#|Min vrednost: 0.0 | Max vrednost: 40.0 | Jedinica mere: g/L

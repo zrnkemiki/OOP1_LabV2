@@ -81,5 +81,11 @@ public class Salary {
 	}
 	
 	
+	public String consoleView() {
+		return "Zaposleni: " + user.getFirstName() + " " + user.getLastName() + " |Period plate OD: " + dateFrom + " -- DO: " + dateUntil
+				+ "| Osnovica za ovaj mesec: " + basic + "RSD |Iznos isplacene plate: " + amount + "RSD";
+	}
+	
+	
 
 }

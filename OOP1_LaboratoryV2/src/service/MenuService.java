@@ -110,8 +110,10 @@ public class MenuService {
 	public void reportsMenu(Scanner sc) {
 		System.out.println("1) Izvestaji broju nalaza i ceni za period");
 		System.out.println("2) Izvestaji o grupi analiza period");
+		System.out.println("3) Izvestaji o prihodima za period");
+		System.out.println("4) Izvestaji o rashodima za period");
 		System.out.println("0) Nazad");
-		int input = chooseMenuOption(3, true, sc);
+		int input = chooseMenuOption(5, true, sc);
 		if(input == 1) {
 			System.out.println("Unesite datum OD [yyyy-MM-dd]: ");
 			LocalDate from = IOHandler.dateInput(sc);
@@ -150,6 +152,20 @@ public class MenuService {
 				}
 				
 			}
+		}
+		else if(input == 3) {
+			System.out.println("Unesite datum OD [yyyy-MM-dd]: ");
+			LocalDate from = IOHandler.dateInput(sc);
+			System.out.println("Unesite datum DO [yyyy-MM-dd]: ");
+			LocalDate until = IOHandler.dateInput(sc);
+			reportService.generateIncomeReport(from, until);
+		}
+		else if(input == 4) {
+			System.out.println("Unesite datum OD [yyyy-MM-dd]: ");
+			LocalDate from = IOHandler.dateInput(sc);
+			System.out.println("Unesite datum DO [yyyy-MM-dd]: ");
+			LocalDate until = IOHandler.dateInput(sc);
+			reportService.generateExpensesReport(from, until);
 		}
 	}
 
@@ -363,7 +379,7 @@ public class MenuService {
 
 		while (true) {
 			aktivan = true;
-			System.out.println("\n**Dobrodošli u Laboratoriju OOP1-FTN**");
+			System.out.println("\n**Dobrodosli u Laboratoriju OOP1-FTN**");
 			System.out.println(" Unesite korisnicko ime:");
 			username = input.nextLine();
 			if (username.equals("")) {

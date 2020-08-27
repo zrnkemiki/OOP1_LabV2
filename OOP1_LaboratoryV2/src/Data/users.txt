@@ -7,4 +7,4 @@ Milos|Zrnic|milos|milos|666666|MALE|1981-09-07|Trg Dositeja Obradovica1|01987554
 Milica|Djordjevic|milica|milica|222222|FEMALE|1995-09-11|Branislava Cosica 1|0651234478|PACIJENT
 Petar|Petrovic|petar|petar|777777|MALE|1977-09-11|Marka Markovica 11|06333332134|MEDICINSKI_TEHNICAR|SSS_4|2016-05-20|0
 Jovan|Jovic|jovan|jovan|333333|MALE|1996-08-13|Bore Prodanovica 9a|123123123|PACIJENT
-Nikola|Nikolic|nikola|nikola|888888|MALE|1989-09-11|Marka Jovovica 21|06523132312|MEDICINSKI_TEHNICAR|SSS_4|2014-05-20|2
+Nikola|Nikolic|nikola|nikola|888888|MALE|1989-09-11|Marka Jovovica 21|06523132312|MEDICINSKI_TEHNICAR|SSS_4|2014-05-20|3
